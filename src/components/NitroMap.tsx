@@ -240,9 +240,11 @@ const NitroMapInner = forwardRef<NitroMapRef, NitroMapProps>(
 
       return {
         ...clusterConfig,
-        backgroundColor: parseColor(clusterConfig.backgroundColor) ?? defaultColor,
+        backgroundColor:
+          parseColor(clusterConfig.backgroundColor) ?? defaultColor,
         textColor: parseColor(clusterConfig.textColor) ?? defaultTextColor,
-        borderColor: parseColor(clusterConfig.borderColor) ?? defaultBorderColor,
+        borderColor:
+          parseColor(clusterConfig.borderColor) ?? defaultBorderColor,
       };
     }, [clusterConfig]);
 
