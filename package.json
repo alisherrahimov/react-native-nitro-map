@@ -1,7 +1,7 @@
 {
   "name": "react-native-nitro-map",
-  "version": "0.0.9",
-  "description": "it is all about map",
+  "version": "0.0.10",
+  "description": "A high-performance React Native map library powered by Nitro Modules with support for Apple Maps, Google Maps, and Yandex Maps. Features native clustering, custom markers, and seamless cross-platform integration.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
