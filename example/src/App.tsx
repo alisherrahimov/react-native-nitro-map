@@ -525,10 +525,10 @@ export default function App() {
           minimumClusterSize: 5,
           maxZoom: 16,
           // Using hex color strings directly!
-          backgroundColor: '#FF5733', // Orange cluster background
+          backgroundColor: '#000000', // Orange cluster background
           textColor: '#FFFFFF', // White text
           borderWidth: 2,
-          borderColor: '#FFF', // Short hex format
+          borderColor: '#FFFFFF', // Short hex format
           animatesClusters: true,
           animationDuration: 0.25,
           animationStyle: 'fade',
