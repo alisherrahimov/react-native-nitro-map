@@ -1,6 +1,6 @@
 {
   "name": "react-native-nitro-map",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "it is all about map",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",

@@ -825,12 +825,12 @@ class GoogleMapProvider: MapProviderProtocol {
       minimumClusterSize: existingConfig?.minimumClusterSize ?? 2,
       maxZoom: existingConfig?.maxZoom ?? 20,
       backgroundColor: existingConfig?.backgroundColor
-        ?? MarkerColor(r: 0, g: 122, b: 255, a: 255),
+        ?? .second(MarkerColor(r: 0, g: 122, b: 255, a: 255)),
       textColor: existingConfig?.textColor
-        ?? MarkerColor(r: 255, g: 255, b: 255, a: 255),
+        ?? .second(MarkerColor(r: 255, g: 255, b: 255, a: 255)),
       borderWidth: existingConfig?.borderWidth ?? 2,
       borderColor: existingConfig?.borderColor
-        ?? MarkerColor(r: 255, g: 255, b: 255, a: 255),
+        ?? .second(MarkerColor(r: 255, g: 255, b: 255, a: 255)),
       animatesClusters: existingConfig?.animatesClusters ?? true,
       animationDuration: existingConfig?.animationDuration ?? 0.3,
       animationStyle: existingConfig?.animationStyle ?? .default

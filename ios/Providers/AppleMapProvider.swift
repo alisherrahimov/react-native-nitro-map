@@ -687,10 +687,10 @@ class AppleMapProvider: NSObject, MapProviderProtocol {
         enabled: enabled,
         minimumClusterSize: 2,
         maxZoom: 20,
-        backgroundColor: MarkerColor(r: 0, g: 122, b: 255, a: 255),
-        textColor: MarkerColor(r: 255, g: 255, b: 255, a: 255),
+        backgroundColor: .second(MarkerColor(r: 0, g: 122, b: 255, a: 255)),
+        textColor: .second(MarkerColor(r: 255, g: 255, b: 255, a: 255)),
         borderWidth: 2,
-        borderColor: MarkerColor(r: 255, g: 255, b: 255, a: 255),
+        borderColor: .second(MarkerColor(r: 255, g: 255, b: 255, a: 255)),
         animatesClusters: true,
         animationDuration: 0.3,
         animationStyle: .default
@@ -885,7 +885,7 @@ class ClusterAnnotationView: MKAnnotationView {
 
     // Background
     let bgColor =
-      config?.backgroundColor ?? MarkerColor(r: 255, g: 87, b: 51, a: 255)
+      config?.backgroundColor.toMarkerColor() ?? MarkerColor(r: 255, g: 87, b: 51, a: 255)
     context.setFillColor(
       UIColor(
         red: CGFloat(bgColor.r) / 255,
@@ -899,7 +899,7 @@ class ClusterAnnotationView: MKAnnotationView {
     // Border
     if let borderWidth = config?.borderWidth, borderWidth > 0 {
       let borderColor =
-        config?.borderColor ?? MarkerColor(r: 255, g: 255, b: 255, a: 255)
+        config?.borderColor.toMarkerColor() ?? MarkerColor(r: 255, g: 255, b: 255, a: 255)
       context.setStrokeColor(
         UIColor(
           red: CGFloat(borderColor.r) / 255,
@@ -915,7 +915,7 @@ class ClusterAnnotationView: MKAnnotationView {
 
     // Text
     let textColor =
-      config?.textColor ?? MarkerColor(r: 255, g: 255, b: 255, a: 255)
+      config?.textColor.toMarkerColor() ?? MarkerColor(r: 255, g: 255, b: 255, a: 255)
     let text = "\(count)"
     let attributes: [NSAttributedString.Key: Any] = [
       .font: UIFont.boldSystemFont(ofSize: size * 0.4),
@@ -1018,7 +1018,7 @@ class NitroClusterAnnotationView: MKAnnotationView {
 
     // Background color
     let bgColor =
-      config?.backgroundColor ?? MarkerColor(r: 0, g: 122, b: 255, a: 255)
+      config?.backgroundColor.toMarkerColor() ?? MarkerColor(r: 0, g: 122, b: 255, a: 255)
     context.setFillColor(
       UIColor(
         red: CGFloat(bgColor.r) / 255,
@@ -1032,7 +1032,7 @@ class NitroClusterAnnotationView: MKAnnotationView {
     // Border
     if let borderWidth = config?.borderWidth, borderWidth > 0 {
       let borderColor =
-        config?.borderColor ?? MarkerColor(r: 255, g: 255, b: 255, a: 255)
+        config?.borderColor.toMarkerColor() ?? MarkerColor(r: 255, g: 255, b: 255, a: 255)
       context.setStrokeColor(
         UIColor(
           red: CGFloat(borderColor.r) / 255,
@@ -1048,7 +1048,7 @@ class NitroClusterAnnotationView: MKAnnotationView {
 
     // Text
     let textColor =
-      config?.textColor ?? MarkerColor(r: 255, g: 255, b: 255, a: 255)
+      config?.textColor.toMarkerColor() ?? MarkerColor(r: 255, g: 255, b: 255, a: 255)
     let text = "\(count)"
     let attributes: [NSAttributedString.Key: Any] = [
       .font: UIFont.boldSystemFont(ofSize: size * 0.4),

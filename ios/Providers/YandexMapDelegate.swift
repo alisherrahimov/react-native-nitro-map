@@ -181,7 +181,7 @@ extension YandexMapDelegate: YMKClusterListener {
     }
     
     // Background color (Yandex yellow by default)
-    let bgColor = config?.backgroundColor ?? MarkerColor(r: 255, g: 204, b: 0, a: 255)
+    let bgColor = config?.backgroundColor.toMarkerColor() ?? MarkerColor(r: 255, g: 204, b: 0, a: 255)
     context.setFillColor(UIColor(
       red: CGFloat(bgColor.r) / 255,
       green: CGFloat(bgColor.g) / 255,
@@ -189,10 +189,10 @@ extension YandexMapDelegate: YMKClusterListener {
       alpha: CGFloat(bgColor.a) / 255
     ).cgColor)
     context.fillEllipse(in: rect)
-    
+
     // Border
     if let borderWidth = config?.borderWidth, borderWidth > 0 {
-      let borderColor = config?.borderColor ?? MarkerColor(r: 255, g: 255, b: 255, a: 255)
+      let borderColor = config?.borderColor.toMarkerColor() ?? MarkerColor(r: 255, g: 255, b: 255, a: 255)
       context.setStrokeColor(UIColor(
         red: CGFloat(borderColor.r) / 255,
         green: CGFloat(borderColor.g) / 255,
@@ -203,9 +203,9 @@ extension YandexMapDelegate: YMKClusterListener {
       let inset = CGFloat(borderWidth) / 2
       context.strokeEllipse(in: rect.insetBy(dx: inset, dy: inset))
     }
-    
+
     // Text
-    let textColor = config?.textColor ?? MarkerColor(r: 0, g: 0, b: 0, a: 255)
+    let textColor = config?.textColor.toMarkerColor() ?? MarkerColor(r: 0, g: 0, b: 0, a: 255)
     let text = "\(count)"
     let attributes: [NSAttributedString.Key: Any] = [
       .font: UIFont.boldSystemFont(ofSize: size * 0.4),

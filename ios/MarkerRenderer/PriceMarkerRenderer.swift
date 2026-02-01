@@ -33,34 +33,40 @@ class PriceMarkerRenderer {
         )
       }
       
+      // Helper to convert optional Variant_String_MarkerColor to UIColor
+      func colorToUIColor(_ colorValue: Variant_String_MarkerColor?, defaultColor: UIColor) -> UIColor {
+        guard let cv = colorValue else { return defaultColor }
+        // Convert variant to MarkerColor
+        let mc: MarkerColor
+        switch cv {
+        case .first(let hexString):
+          // Parse hex color string
+          mc = ColorValue.first(hexString).toMarkerColor()
+        case .second(let markerColor):
+          mc = markerColor
+        }
+        return UIColor(
+          red: CGFloat(mc.r) / 255,
+          green: CGFloat(mc.g) / 255,
+          blue: CGFloat(mc.b) / 255,
+          alpha: CGFloat(mc.a) / 255
+        )
+      }
+
       return Style(
         price: config.price,
         currency: config.currency,
         selected: config.selected,
-        backgroundColor: config.backgroundColor.map { UIColor(
-          red: CGFloat($0.r) / 255,
-          green: CGFloat($0.g) / 255,
-          blue: CGFloat($0.b) / 255,
-          alpha: CGFloat($0.a) / 255
-        )} ?? .white,
-        selectedBackgroundColor: config.selectedBackgroundColor.map { UIColor(
-          red: CGFloat($0.r) / 255,
-          green: CGFloat($0.g) / 255,
-          blue: CGFloat($0.b) / 255,
-          alpha: CGFloat($0.a) / 255
-        )} ?? UIColor(red: 255/255, green: 59/255, blue: 48/255, alpha: 1),
-        textColor: config.textColor.map { UIColor(
-          red: CGFloat($0.r) / 255,
-          green: CGFloat($0.g) / 255,
-          blue: CGFloat($0.b) / 255,
-          alpha: CGFloat($0.a) / 255
-        )} ?? UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1),
-        selectedTextColor: config.selectedTextColor.map { UIColor(
-          red: CGFloat($0.r) / 255,
-          green: CGFloat($0.g) / 255,
-          blue: CGFloat($0.b) / 255,
-          alpha: CGFloat($0.a) / 255
-        )} ?? .white,
+        backgroundColor: colorToUIColor(config.backgroundColor, defaultColor: .white),
+        selectedBackgroundColor: colorToUIColor(
+          config.selectedBackgroundColor,
+          defaultColor: UIColor(red: 255/255, green: 59/255, blue: 48/255, alpha: 1)
+        ),
+        textColor: colorToUIColor(
+          config.textColor,
+          defaultColor: UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
+        ),
+        selectedTextColor: colorToUIColor(config.selectedTextColor, defaultColor: .white),
         fontSize: CGFloat(10), // config.fontSize
         paddingHorizontal: CGFloat(config.paddingHorizontal ?? 8),
         paddingVertical: CGFloat(config.paddingVertical ?? 6),

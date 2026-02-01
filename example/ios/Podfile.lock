@@ -13,7 +13,7 @@ PODS:
   - hermes-engine (0.14.0):
     - hermes-engine/Pre-built (= 0.14.0)
   - hermes-engine/Pre-built (0.14.0)
-  - NitroMap (0.0.8):
+  - NitroMap (0.0.9):
     - boost
     - DoubleConversion
     - fast_float
@@ -1959,6 +1959,36 @@ PODS:
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
     - SocketRocket
+  - react-native-config (1.6.1):
+    - react-native-config/App (= 1.6.1)
+  - react-native-config/App (1.6.1):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
   - React-NativeModulesApple (0.83.0):
     - boost
     - DoubleConversion
@@ -2567,6 +2597,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
+  - react-native-config (from `../node_modules/react-native-config`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-networking (from `../node_modules/react-native/ReactCommon/react/networking`)
   - React-oscompat (from `../node_modules/react-native/ReactCommon/oscompat`)
@@ -2702,6 +2733,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
+  react-native-config:
+    :path: "../node_modules/react-native-config"
   React-NativeModulesApple:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios"
   React-networking:
@@ -2781,7 +2814,7 @@ SPEC CHECKSUMS:
   Google-Maps-iOS-Utils: bed22fa703c919259b3901449434d60d994fae20
   GoogleMaps: 5db81729b4f6defd40820d46b49a350273ec1d28
   hermes-engine: 9a89b4b64f1cf27d85e347729be6d8210ee416b1
-  NitroMap: 5cc069f8eaf5296a94325eb155c878ce28c4ff8d
+  NitroMap: dbea22db4675e5db4217a7051990761ca7834edd
   NitroModules: 22837572f1ecf8f1560f5aac7c9f687825754901
   RCT-Folly: 59ec0ac1f2f39672a0c6e6cecdd39383b764646f
   RCTDeprecation: 2b70c6e3abe00396cefd8913efbf6a2db01a2b36
@@ -2819,6 +2852,7 @@ SPEC CHECKSUMS:
   React-logger: 3fc17afd62cdb87324a345b107b06a90b3e2dea0
   React-Mapbuffer: d690542fbbded9d9526a0a883c439aa82e4cede3
   React-microtasksnativemodule: b908076184179c0fd0db8713b5140f6e6e0e56c7
+  react-native-config: d11015cb98b2973fec0e49407181720225733567
   React-NativeModulesApple: 153a3effe2df7d35881f3f0c126c8182b8643e5a
   React-networking: 236c494a8d26fc5a776b3cfec7795a3e55143c91
   React-oscompat: aedc0afbded67280de6bb6bfac8cfde0389e2b33

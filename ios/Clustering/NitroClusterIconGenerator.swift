@@ -15,32 +15,35 @@ class NitroClusterIconGenerator: GMUDefaultClusterIconGenerator {
 
     let bgColor =
       config.map {
-        UIColor(
-          red: CGFloat($0.backgroundColor.r) / 255,
-          green: CGFloat($0.backgroundColor.g) / 255,
-          blue: CGFloat($0.backgroundColor.b) / 255,
-          alpha: CGFloat($0.backgroundColor.a) / 255
+        let color = $0.backgroundColor.toMarkerColor()
+        return UIColor(
+          red: CGFloat(color.r) / 255,
+          green: CGFloat(color.g) / 255,
+          blue: CGFloat(color.b) / 255,
+          alpha: CGFloat(color.a) / 255
         )
       } ?? UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
 
     let textColor =
       config.map {
-        UIColor(
-          red: CGFloat($0.textColor.r) / 255,
-          green: CGFloat($0.textColor.g) / 255,
-          blue: CGFloat($0.textColor.b) / 255,
-          alpha: CGFloat($0.textColor.a) / 255
+        let color = $0.textColor.toMarkerColor()
+        return UIColor(
+          red: CGFloat(color.r) / 255,
+          green: CGFloat(color.g) / 255,
+          blue: CGFloat(color.b) / 255,
+          alpha: CGFloat(color.a) / 255
         )
       } ?? .white
 
     let borderWidth = CGFloat(config?.borderWidth ?? 2)
     let borderColor =
       config.map {
-        UIColor(
-          red: CGFloat($0.borderColor.r) / 255,
-          green: CGFloat($0.borderColor.g) / 255,
-          blue: CGFloat($0.borderColor.b) / 255,
-          alpha: CGFloat($0.borderColor.a) / 255
+        let color = $0.borderColor.toMarkerColor()
+        return UIColor(
+          red: CGFloat(color.r) / 255,
+          green: CGFloat(color.g) / 255,
+          blue: CGFloat(color.b) / 255,
+          alpha: CGFloat(color.a) / 255
         )
       } ?? .white
 

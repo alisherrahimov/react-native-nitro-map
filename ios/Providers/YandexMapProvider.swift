@@ -753,10 +753,10 @@ class YandexMapProvider: NSObject, MapProviderProtocol {
       enabled: enabled,
       minimumClusterSize: 2,
       maxZoom: 20,
-      backgroundColor: MarkerColor(r: 255, g: 204, b: 0, a: 255),  // Yandex yellow
-      textColor: MarkerColor(r: 0, g: 0, b: 0, a: 255),
+      backgroundColor: .second(MarkerColor(r: 255, g: 204, b: 0, a: 255)),  // Yandex yellow
+      textColor: .second(MarkerColor(r: 0, g: 0, b: 0, a: 255)),
       borderWidth: 2,
-      borderColor: MarkerColor(r: 255, g: 255, b: 255, a: 255),
+      borderColor: .second(MarkerColor(r: 255, g: 255, b: 255, a: 255)),
       animatesClusters: true,
       animationDuration: 0.3,
       animationStyle: .default

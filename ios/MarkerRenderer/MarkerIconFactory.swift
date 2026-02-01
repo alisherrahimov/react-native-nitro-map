@@ -255,11 +255,12 @@ class MarkerIconFactory {
     let cornerRadius = CGFloat(config.cornerRadius)
     let borderWidth = CGFloat(config.borderWidth)
 
+    let borderColorValue = config.borderColor.toMarkerColor()
     let borderColor = UIColor(
-      red: CGFloat(config.borderColor.r) / 255,
-      green: CGFloat(config.borderColor.g) / 255,
-      blue: CGFloat(config.borderColor.b) / 255,
-      alpha: CGFloat(config.borderColor.a) / 255
+      red: CGFloat(borderColorValue.r) / 255,
+      green: CGFloat(borderColorValue.g) / 255,
+      blue: CGFloat(borderColorValue.b) / 255,
+      alpha: CGFloat(borderColorValue.a) / 255
     )
 
     let renderer = UIGraphicsImageRenderer(
