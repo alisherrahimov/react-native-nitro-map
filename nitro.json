@@ -1,0 +1,21 @@
+{
+  "cxxNamespace": ["nitromap"],
+  "ios": {
+    "iosModuleName": "NitroMap"
+  },
+  "android": {
+    "androidNamespace": ["nitromap"],
+    "androidCxxLibName": "nitromap"
+  },
+  "autolinking": {
+    "NitroMap": {
+      "swift": "HybridNitroMap",
+      "kotlin": "HybridNitroMap"
+    },
+    "NitroMapConfig": {
+      "swift": "HybridNitroMapConfig",
+      "kotlin": "HybridNitroMapConfig"
+    }
+  },
+  "ignorePaths": ["node_modules"]
+}
