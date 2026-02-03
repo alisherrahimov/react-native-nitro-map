@@ -21,9 +21,9 @@ class ClusterIconGenerator(private val context: Context) {
 
     fun updateConfig(config: ClusterConfig?) {
         config?.let {
-            backgroundColor = colorFromMarkerColor(it.backgroundColor)
-            textColor = colorFromMarkerColor(it.textColor)
-            borderColor = colorFromMarkerColor(it.borderColor)
+            backgroundColor = ColorUtils.fromColorValue(it.backgroundColor)
+            textColor = ColorUtils.fromColorValue(it.textColor)
+            borderColor = ColorUtils.fromColorValue(it.borderColor)
             borderWidth = it.borderWidth.toFloat()
             // Clear cache when config changes
             iconCache.clear()
@@ -100,17 +100,6 @@ class ClusterIconGenerator(private val context: Context) {
             count >= 1000 -> "${count / 1000}K"
             else -> count.toString()
         }
-    }
-
-    private fun colorFromMarkerColor(color: MarkerColor): Int {
-        // Handle alpha: if <= 1.0, treat as 0-1 range and scale to 0-255
-        val alpha = if (color.a <= 1.0) (color.a * 255).toInt() else color.a.toInt()
-        return Color.argb(
-            alpha.coerceIn(0, 255),
-            color.r.toInt().coerceIn(0, 255),
-            color.g.toInt().coerceIn(0, 255),
-            color.b.toInt().coerceIn(0, 255)
-        )
     }
 
     fun clearCache() {

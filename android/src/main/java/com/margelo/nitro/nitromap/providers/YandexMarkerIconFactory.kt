@@ -62,10 +62,10 @@ object YandexMarkerIconFactory {
         val density = context.resources.displayMetrics.density
 
         val backgroundColor =
-                config?.backgroundColor?.let { colorFromMarkerColor(it) }
+                config?.backgroundColor?.let { ColorUtils.fromColorValue(it) }
                         ?: Color.parseColor("#007AFF")
-        val textColor = config?.textColor?.let { colorFromMarkerColor(it) } ?: Color.WHITE
-        val borderColor = config?.borderColor?.let { colorFromMarkerColor(it) } ?: Color.WHITE
+        val textColor = config?.textColor?.let { ColorUtils.fromColorValue(it) } ?: Color.WHITE
+        val borderColor = config?.borderColor?.let { ColorUtils.fromColorValue(it) } ?: Color.WHITE
         val borderWidth = config?.borderWidth?.toFloat() ?: 2f
 
         // Size based on count
@@ -165,17 +165,17 @@ object YandexMarkerIconFactory {
         // Set colors based on selection state
         val bgColor =
                 if (config.selected) {
-                    config.selectedBackgroundColor?.let { colorFromMarkerColor(it) }
+                    config.selectedBackgroundColor?.let { ColorUtils.fromVariant(it) }
                             ?: Color.parseColor("#E53935") // Red for selected
                 } else {
-                    config.backgroundColor?.let { colorFromMarkerColor(it) } ?: Color.WHITE
+                    config.backgroundColor?.let { ColorUtils.fromVariant(it) } ?: Color.WHITE
                 }
 
         val textColor =
                 if (config.selected) {
-                    config.selectedTextColor?.let { colorFromMarkerColor(it) } ?: Color.WHITE
+                    config.selectedTextColor?.let { ColorUtils.fromVariant(it) } ?: Color.WHITE
                 } else {
-                    config.textColor?.let { colorFromMarkerColor(it) } ?: Color.BLACK
+                    config.textColor?.let { ColorUtils.fromVariant(it) } ?: Color.BLACK
                 }
 
         textPaint.color = textColor
@@ -331,7 +331,7 @@ object YandexMarkerIconFactory {
         if (borderWidth > 0) {
             val borderPaint =
                     Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                        color = colorFromMarkerColor(config.borderColor)
+                        color = ColorUtils.fromColorValue(config.borderColor)
                         style = Paint.Style.STROKE
                         strokeWidth = borderWidth.toFloat()
                     }
@@ -352,16 +352,5 @@ object YandexMarkerIconFactory {
         MarkerIconCache.putImageMarker(cacheKey, bitmap)
 
         return bitmap
-    }
-
-    private fun colorFromMarkerColor(color: MarkerColor): Int {
-        // Handle alpha: if <= 1.0, treat as 0-1 range and scale to 0-255
-        val alpha = if (color.a <= 1.0) (color.a * 255).toInt() else color.a.toInt()
-        return Color.argb(
-                alpha.coerceIn(0, 255),
-                color.r.toInt().coerceIn(0, 255),
-                color.g.toInt().coerceIn(0, 255),
-                color.b.toInt().coerceIn(0, 255)
-        )
     }
 }

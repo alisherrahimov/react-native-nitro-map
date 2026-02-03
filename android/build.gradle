@@ -24,10 +24,16 @@ apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 apply from: '../nitrogen/generated/android/nitromap+autolinking.gradle'
 
-apply plugin: "com.facebook.react"
+if (rootProject.hasProperty('react')) {
+  apply plugin: "com.facebook.react"
+}
 
 def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["NitroMap_" + name]).toInteger()
+  if (rootProject.ext.has(name)) {
+    return rootProject.ext.get(name)
+  }
+  def prop = project.properties["NitroMap_" + name]
+  return prop != null ? prop.toInteger() : null
 }
 
 android {

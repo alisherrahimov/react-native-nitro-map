@@ -39,72 +39,134 @@ cd ios && pod install
 
 ### Android Setup
 
-#### Google Maps
+We recommend using `react-native-config` to securely manage API keys via `.env` files.
 
-Add your Google Maps API key to `android/app/src/main/AndroidManifest.xml`:
+#### 1. Install react-native-config
+
+```bash
+npm install react-native-config
+# or
+yarn add react-native-config
+```
+
+#### 2. Create `.env` file (add to `.gitignore`)
+
+```env
+GOOGLE_MAP=your_google_maps_api_key
+YANDEX_MAP=your_yandex_maps_api_key
+```
+
+#### 3. Update `android/app/build.gradle`
+
+```groovy
+apply plugin: "com.android.application"
+apply plugin: "com.facebook.react"
+
+// Add this line to load .env variables
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
+android {
+    defaultConfig {
+        // Expose .env variables to AndroidManifest
+        manifestPlaceholders = [
+            GOOGLE_MAP: project.env.get("GOOGLE_MAP") ?: "",
+            YANDEX_MAP: project.env.get("YANDEX_MAP") ?: ""
+        ]
+    }
+}
+```
+
+#### 4. Update `android/app/src/main/AndroidManifest.xml`
 
 ```xml
 <application>
+  <!-- Google Maps -->
   <meta-data
     android:name="com.google.android.geo.API_KEY"
-    android:value="YOUR_GOOGLE_MAPS_API_KEY"/>
-</application>
-```
+    android:value="${GOOGLE_MAP}"/>
 
-#### Yandex Maps
-
-Add your Yandex Maps API key to `android/app/src/main/AndroidManifest.xml`:
-
-```xml
-<application>
+  <!-- Yandex Maps (if using) -->
   <meta-data
     android:name="com.yandex.android.mapkit.ApiKey"
-    android:value="YOUR_YANDEX_MAPS_API_KEY"/>
+    android:value="${YANDEX_MAP}"/>
 </application>
 ```
+
+#### Alternative: Hardcoded Keys (Not Recommended)
+
+If you prefer not to use `react-native-config`, you can hardcode keys directly in `AndroidManifest.xml`:
+
+```xml
+<meta-data
+  android:name="com.google.android.geo.API_KEY"
+  android:value="YOUR_GOOGLE_MAPS_API_KEY"/>
+```
+
+> ⚠️ **Warning**: Hardcoding API keys in source files is insecure. Keys can be extracted from the APK and may be exposed in version control.
 
 ## Initialization
 
 Before using the map, you must initialize it with your API key:
 
 ```tsx
+import { useEffect } from 'react';
 import {
   NitroMapInitialize,
   IsNitroMapInitialized,
 } from 'react-native-nitro-map';
+import Config from 'react-native-config';
 
-// Initialize once at app startup
-// Google Maps
-NitroMapInitialize('YOUR_GOOGLE_MAPS_API_KEY', 'google');
+function App() {
+  useEffect(() => {
+    // Initialize once at app startup
+    // Google Maps
+    NitroMapInitialize(Config.GOOGLE_MAP!, 'google');
 
-// OR Yandex Maps
-NitroMapInitialize('YOUR_YANDEX_MAPS_API_KEY', 'yandex');
+    // OR Yandex Maps
+    // NitroMapInitialize(Config.YANDEX_MAP!, 'yandex');
 
-// OR Apple Maps (no API key required)
-NitroMapInitialize('', 'apple');
+    // OR Apple Maps (no API key required)
+    // NitroMapInitialize('', 'apple');
 
-// Check if initialized
-if (IsNitroMapInitialized()) {
-  console.log('Map is ready!');
+    // Check if initialized
+    if (IsNitroMapInitialized()) {
+      console.log('Map is ready!');
+    }
+  }, []);
+
+  return <NitroMap provider="google" />;
 }
 ```
 
 > **Important**: You must call `NitroMapInitialize` before rendering any `NitroMap` component.
 
+### Platform Notes
+
+| Platform | Google Maps                                    | Yandex Maps                  |
+| -------- | ---------------------------------------------- | ---------------------------- |
+| iOS      | API key passed via `NitroMapInitialize`        | API key via `NitroMapInitialize` |
+| Android  | API key from `AndroidManifest.xml` (build time)| API key via `NitroMapInitialize` |
+
+On Android, Google Maps reads the API key from the manifest at build time. The `NitroMapInitialize` call still initializes the SDK, but the key must be in the manifest (use `react-native-config` to inject it securely from `.env`).
+
 ## Quick Start
 
 ```tsx
+import { useEffect } from 'react';
 import {
   NitroMap,
   NitroMapInitialize,
   PriceMarker,
   ImageMarker,
 } from 'react-native-nitro-map';
-
-// Initialize once at app startup
-NitroMapInitialize('YOUR_API_KEY', 'google');
+import Config from 'react-native-config';
 
 export default function App() {
+  // Initialize once at app startup
+  useEffect(() => {
+    NitroMapInitialize(Config.GOOGLE_MAP!, 'google');
+  }, []);
+
   return (
     <NitroMap
       provider="google" // "google" | "apple" | "yandex"

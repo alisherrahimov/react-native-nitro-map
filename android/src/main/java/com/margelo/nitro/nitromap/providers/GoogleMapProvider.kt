@@ -617,12 +617,12 @@ class GoogleMapProvider(private val context: Context) : MapProviderInterface, On
                             minimumClusterSize = existing?.minimumClusterSize ?: 2.0,
                             maxZoom = existing?.maxZoom ?: 20.0,
                             backgroundColor = existing?.backgroundColor
-                                            ?: MarkerColor(0.0, 122.0, 255.0, 255.0),
+                                            ?: ColorUtils.defaultColorValue(0.0, 122.0, 255.0, 255.0),
                             textColor = existing?.textColor
-                                            ?: MarkerColor(255.0, 255.0, 255.0, 255.0),
+                                            ?: ColorUtils.defaultColorValue(255.0, 255.0, 255.0, 255.0),
                             borderWidth = existing?.borderWidth ?: 2.0,
                             borderColor = existing?.borderColor
-                                            ?: MarkerColor(255.0, 255.0, 255.0, 255.0),
+                                            ?: ColorUtils.defaultColorValue(255.0, 255.0, 255.0, 255.0),
                             animatesClusters = existing?.animatesClusters ?: true,
                             animationDuration = existing?.animationDuration ?: 0.3,
                             animationStyle = existing?.animationStyle
@@ -715,24 +715,32 @@ class GoogleMapProvider(private val context: Context) : MapProviderInterface, On
     }
 
     override fun getMapBoundaries(): Promise<MapBoundaries> {
-        val map =
-                googleMap
-                        ?: return Promise.resolved(
-                                MapBoundaries(
-                                        northEast = Coordinate(0.0, 0.0),
-                                        southWest = Coordinate(0.0, 0.0)
-                                )
+        val promise = Promise<MapBoundaries>()
+        runOnUiThread {
+            try {
+                val map = googleMap
+                if (map == null) {
+                    promise.resolve(
+                        MapBoundaries(
+                            northEast = Coordinate(0.0, 0.0),
+                            southWest = Coordinate(0.0, 0.0)
                         )
+                    )
+                    return@runOnUiThread
+                }
 
-        val bounds = map.projection.visibleRegion.latLngBounds
-        return Promise.resolved(
-                MapBoundaries(
-                        northEast =
-                                Coordinate(bounds.northeast.latitude, bounds.northeast.longitude),
-                        southWest =
-                                Coordinate(bounds.southwest.latitude, bounds.southwest.longitude)
+                val bounds = map.projection.visibleRegion.latLngBounds
+                promise.resolve(
+                    MapBoundaries(
+                        northEast = Coordinate(bounds.northeast.latitude, bounds.northeast.longitude),
+                        southWest = Coordinate(bounds.southwest.latitude, bounds.southwest.longitude)
+                    )
                 )
-        )
+            } catch (e: Exception) {
+                promise.reject(e)
+            }
+        }
+        return promise
     }
 
     override fun getCurrentRegion(): Region {

@@ -11,8 +11,6 @@ import NitroMap, {
 } from 'react-native-nitro-map';
 import Config from 'react-native-config';
 
-const GOOGLE_MAP_KEY = Config.GOOGLE_MAP;
-
 // ============================================================================
 // CONFIGURATION
 // ============================================================================
@@ -384,7 +382,7 @@ export default function App() {
 
   // Initialize map SDK
   useEffect(() => {
-    NitroMapInitialize(GOOGLE_MAP_KEY!, 'google');
+    NitroMapInitialize(Config.GOOGLE_MAP!, 'google');
   }, []);
 
   // Filter markers within viewport bounds

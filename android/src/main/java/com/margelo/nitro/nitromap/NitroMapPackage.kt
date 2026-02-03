@@ -10,6 +10,8 @@ import com.margelo.nitro.nitromap.views.HybridNitroMapManager
 
 class NitroMapPackage : BaseReactPackage() {
     override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
+        // Set context for HybridNitroMapConfig on first module access
+        HybridNitroMapConfig.setContext(reactContext)
         return null
     }
 
@@ -18,6 +20,8 @@ class NitroMapPackage : BaseReactPackage() {
     }
 
     override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
+        // Set context for HybridNitroMapConfig
+        HybridNitroMapConfig.setContext(reactContext)
         return listOf(HybridNitroMapManager())
     }
 

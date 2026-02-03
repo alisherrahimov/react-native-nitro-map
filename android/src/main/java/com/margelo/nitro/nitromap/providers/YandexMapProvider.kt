@@ -330,7 +330,7 @@ class YandexMapProvider(private val context: Context) :
 
         // Background color from config or default
         val bgColor =
-                _clusterConfig?.backgroundColor?.let { colorFromMarkerColor(it) }
+                _clusterConfig?.backgroundColor?.let { ColorUtils.fromColorValue(it) }
                         ?: Color.parseColor("#FF5722") // Orange-red like iOS screenshot
 
         val bgPaint =
@@ -344,7 +344,7 @@ class YandexMapProvider(private val context: Context) :
         val borderWidth = _clusterConfig?.borderWidth?.toFloat() ?: 2f
         if (borderWidth > 0) {
             val borderColor =
-                    _clusterConfig?.borderColor?.let { colorFromMarkerColor(it) } ?: Color.WHITE
+                    _clusterConfig?.borderColor?.let { ColorUtils.fromColorValue(it) } ?: Color.WHITE
             val borderPaint =
                     Paint(Paint.ANTI_ALIAS_FLAG).apply {
                         color = borderColor
@@ -360,7 +360,7 @@ class YandexMapProvider(private val context: Context) :
         }
 
         // Text
-        val textColor = _clusterConfig?.textColor?.let { colorFromMarkerColor(it) } ?: Color.WHITE
+        val textColor = _clusterConfig?.textColor?.let { ColorUtils.fromColorValue(it) } ?: Color.WHITE
         val text = count.toString()
         val textPaint =
                 Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -376,16 +376,6 @@ class YandexMapProvider(private val context: Context) :
         canvas.drawText(text, size / 2f, textY, textPaint)
 
         return bitmap
-    }
-
-    private fun colorFromMarkerColor(color: MarkerColor): Int {
-        val alpha = if (color.a <= 1.0) (color.a * 255).toInt() else color.a.toInt()
-        return Color.argb(
-                alpha.coerceIn(0, 255),
-                color.r.toInt().coerceIn(0, 255),
-                color.g.toInt().coerceIn(0, 255),
-                color.b.toInt().coerceIn(0, 255)
-        )
     }
 
     // MARK: - Clustering Config
@@ -732,12 +722,12 @@ class YandexMapProvider(private val context: Context) :
                             minimumClusterSize = existing?.minimumClusterSize ?: 2.0,
                             maxZoom = existing?.maxZoom ?: 20.0,
                             backgroundColor = existing?.backgroundColor
-                                            ?: MarkerColor(255.0, 87.0, 34.0, 255.0), // Orange-red
+                                            ?: ColorUtils.defaultColorValue(255.0, 87.0, 34.0, 255.0), // Orange-red
                             textColor = existing?.textColor
-                                            ?: MarkerColor(255.0, 255.0, 255.0, 255.0),
+                                            ?: ColorUtils.defaultColorValue(255.0, 255.0, 255.0, 255.0),
                             borderWidth = existing?.borderWidth ?: 2.0,
                             borderColor = existing?.borderColor
-                                            ?: MarkerColor(255.0, 255.0, 255.0, 255.0),
+                                            ?: ColorUtils.defaultColorValue(255.0, 255.0, 255.0, 255.0),
                             animatesClusters = existing?.animatesClusters ?: true,
                             animationDuration = existing?.animationDuration ?: 0.3,
                             animationStyle = existing?.animationStyle
